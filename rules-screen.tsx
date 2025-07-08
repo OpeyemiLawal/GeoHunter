@@ -11,7 +11,7 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-green-500 flex items-center justify-center p-3 relative overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-green-500 flex flex-col items-center justify-start p-3 relative overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
@@ -29,10 +29,10 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
         ></div>
       </div>
 
-      {/* Main Content Card */}
-      <div className="bg-white/98 backdrop-blur-xl rounded-3xl shadow-2xl w-full mx-auto relative z-10 border border-white/30 h-[92vh] flex flex-col overflow-hidden max-w-3xl lg:max-w-4xl xl:max-w-4xl">
-        {/* Header - Fixed */}
-        <div className="text-center p-6 sm:p-8 flex-shrink-0 border-b border-gray-100">
+      {/* Main Content - No Card */}
+      <div className="w-full max-w-3xl lg:max-w-4xl xl:max-w-4xl mx-auto relative z-10 flex flex-col flex-1 pt-8 pb-32 px-2 sm:px-6">
+        {/* Header */}
+        <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl mb-3 sm:mb-4 shadow-lg">
             <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -49,7 +49,7 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto scrollbar-none p-5 sm:p-8">
+        <div className="flex-1 overflow-y-auto scrollbar-none">
           {/* Game Steps - Compact Layout */}
           <div className="grid gap-4 mb-8">
             {/* Step 1 */}
@@ -149,39 +149,39 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Action Buttons - Fixed at bottom */}
-        <div className="flex-shrink-0 p-6 sm:p-8 border-t border-gray-100 bg-white/95">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={handleBackToStart}
-              className="flex-1 group bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-4 rounded-2xl hover:from-blue-600 hover:to-green-600 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <span className="relative z-10 flex items-center justify-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Start
-              </span>
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-            <button
-              onClick={onStartGame}
-              className="flex-1 group bg-white text-blue-600 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-blue-300 min-h-[48px] touch-manipulation relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <span className="relative z-10 flex items-center justify-center">
-                Start Playing
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a1.5 1.5 0 011.5 1.5V12a1.5 1.5 0 01-1.5 1.5H9m0 0v3m0-3h3m-3 0h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H9z"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
+      {/* Sticky Action Buttons - CTA */}
+      <div className="sticky bottom-0 left-0 w-full z-20 bg-white/90 border-t border-gray-200 shadow-lg px-2 sm:px-0 py-4 flex justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-3xl lg:max-w-4xl xl:max-w-4xl">
+          <button
+            onClick={handleBackToStart}
+            className="flex-1 group bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-4 rounded-2xl hover:from-blue-600 hover:to-green-600 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <span className="relative z-10 flex items-center justify-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back to Start
+            </span>
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+          <button
+            onClick={onStartGame}
+            className="flex-1 group bg-white text-blue-600 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-blue-300 min-h-[48px] touch-manipulation relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <span className="relative z-10 flex items-center justify-center">
+              Start Playing
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a1.5 1.5 0 011.5 1.5V12a1.5 1.5 0 01-1.5 1.5H9m0 0v3m0-3h3m-3 0h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H9z"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
