@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { getRandomCountries, generateShuffleFlags, type CountryData } from "./countries-data"
+import { useIsMobile } from "./hooks/use-mobile"
 
 interface GameBoardProps {
   onGameComplete?: (results: GameResult[]) => void
@@ -209,6 +210,8 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
   }
 
   const sessionProgress = ((currentRound + 1) / 8) * 100
+
+  const isMobile = useIsMobile();
 
   return (
     <div className="h-screen bg-white flex flex-col overflow-hidden">
@@ -482,7 +485,7 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
                         )}
                       </div>
                     </div>
-                    {!isDragging && animationComplete && (
+                    {!isDragging && animationComplete && !isMobile && (
                       <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white text-xs px-3 py-1 rounded-full animate-in slide-in-from-bottom duration-300">
                         Drag me!
                       </div>
