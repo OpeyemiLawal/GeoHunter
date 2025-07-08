@@ -15,84 +15,58 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
   const clickSoundRef = useRef<HTMLAudioElement>(null)
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-blue-500 via-blue-600 to-green-500 flex items-center justify-center p-0 relative overflow-y-auto scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-blue-50">
+    <div className="min-h-screen h-full w-full bg-gradient-to-br from-blue-500 via-blue-600 to-green-500 flex flex-col items-center justify-center p-0 sm:p-6 relative overflow-auto scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-blue-50">
       {/* Enhanced Background Elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none select-none">
         <div className="absolute top-10 left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-20 right-20 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute top-1/2 left-1/4 w-24 h-24 bg-white/10 rounded-full blur-xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute top-1/4 right-1/3 w-20 h-20 bg-white/10 rounded-full blur-lg animate-pulse"
-          style={{ animationDelay: "0.5s" }}
-        ></div>
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/4 right-1/3 w-20 h-20 bg-white/10 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
       {/* Main Content Card */}
-      <div className="bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl w-full mx-auto relative z-10 border border-white/30 max-w-3xl p-0 sm:p-0 md:p-0 lg:p-0 xl:p-0 my-12 flex flex-col">
+      <div className="bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl w-full mx-auto relative z-10 border border-white/30 flex flex-col max-w-3xl my-12 px-0 sm:px-0">
         {/* Header - Fixed */}
-        <div className="text-center p-6 sm:p-8 flex-shrink-0 border-b border-gray-100">
+        <div className="text-center px-6 pt-8 pb-4 flex-shrink-0 border-b border-gray-100">
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl mb-3 shadow-lg">
             <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800 mb-2 tracking-tight">How to Play</h1>
-          <p className="text-gray-700 text-base sm:text-lg lg:text-xl font-medium max-w-2xl mx-auto">
-            Master geography and achieve the perfect score
-          </p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">How to Play</h1>
+          <p className="text-gray-700 text-base sm:text-lg font-medium max-w-2xl mx-auto">Master geography and achieve the perfect score</p>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-green-500 mx-auto rounded-full mt-3"></div>
         </div>
 
-        {/* Main Content (not scrollable) */}
-        <div className="flex-1 p-6 sm:p-10">
+        {/* Main Content (not scrollable, let window scroll) */}
+        <div className="flex-1 px-6 py-6 sm:px-10 sm:py-8">
           {/* Game Steps - Compact Layout */}
-          <div className="grid gap-5 mb-8">
+          <div className="grid gap-6 mb-10">
             {/* Step 1 */}
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 p-5 sm:p-6 rounded-2xl border border-blue-100 shadow-sm">
+            <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 sm:p-6 rounded-2xl border border-blue-100 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg flex items-center justify-center text-lg font-bold shadow-lg">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg flex items-center justify-center text-base font-bold shadow-lg">
                   1
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">Choose Your Country</h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                    A random country flag appears. Study it and prepare to make strategic decisions about its global
-                    rankings.
-                  </p>
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">A random country flag appears. Study it and prepare to make strategic decisions about its global rankings.</p>
                 </div>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="bg-gradient-to-r from-green-50 to-purple-50 p-5 sm:p-6 rounded-2xl border border-green-100 shadow-sm">
+            <div className="bg-gradient-to-r from-green-50 to-purple-50 p-4 sm:p-6 rounded-2xl border border-green-100 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg flex items-center justify-center text-lg font-bold shadow-lg">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg flex items-center justify-center text-base font-bold shadow-lg">
                   2
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">Select Categories</h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-2">
-                    Choose from 8 categories where you think this country ranks well:
-                  </p>
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-2">Choose from 8 categories where you think this country ranks well:</p>
                   <div className="grid grid-cols-4 gap-2 sm:gap-3">
                     {["Population", "FIFA", "Size", "Crime", "GDP", "Tourism", "Gas", "Coffee"].map((category) => (
-                      <span
-                        key={category}
-                        className="bg-white px-2 sm:px-3 py-1 rounded text-xs font-semibold text-gray-700 border border-gray-200 text-center shadow-sm"
-                      >
-                        {category}
-                      </span>
+                      <span key={category} className="bg-white px-2 sm:px-3 py-1 rounded text-xs font-medium text-gray-700 border border-gray-200 text-center shadow-sm">{category}</span>
                     ))}
                   </div>
                 </div>
@@ -100,26 +74,23 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
             </div>
 
             {/* Step 3 */}
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-5 sm:p-6 rounded-2xl border border-purple-100 shadow-sm">
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-6 rounded-2xl border border-purple-100 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg flex items-center justify-center text-lg font-bold shadow-lg">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg flex items-center justify-center text-base font-bold shadow-lg">
                   3
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">Score Calculation</h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                    Your score = sum of country's actual global rankings.
-                    <span className="font-semibold text-purple-600"> Lower scores are better!</span>
-                  </p>
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">Your score = sum of country's actual global rankings.<span className="font-semibold text-purple-600"> Lower scores are better!</span></p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Performance Levels - Compact Grid */}
-          <div className="mb-8">
+          <div className="mb-10">
             <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-800 mb-4">Performance Levels</h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-gradient-to-br from-green-400 to-green-500 p-4 rounded-2xl text-white shadow-lg text-center">
                 <div className="text-2xl sm:text-3xl font-bold mb-1">🏆</div>
                 <div className="text-base sm:text-lg font-bold">Elite!</div>
@@ -144,88 +115,62 @@ export default function RulesScreen({ onBackToStart, onStartGame }: RulesScreenP
           </div>
 
           {/* Two Column Layout for Tips */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
             {/* Pro Tips */}
-            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-5 sm:p-6 rounded-2xl border border-indigo-100 shadow-sm">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 flex items-center">
-                <span className="text-xl sm:text-2xl mr-2">💡</span>
-                Pro Tips
-              </h3>
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 sm:p-6 rounded-2xl border border-indigo-100 shadow-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 flex items-center"><span className="text-xl sm:text-2xl mr-2">💡</span>Pro Tips</h3>
               <ul className="space-y-2 text-gray-700 text-sm sm:text-base">
-                <li className="flex items-start">
-                  <span className="text-indigo-500 mr-2 mt-1">•</span>
-                  <span>Think about what each country is famous for</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-indigo-500 mr-2 mt-1">•</span>
-                  <span>Consider both obvious and surprising strengths</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-indigo-500 mr-2 mt-1">•</span>
-                  <span>Smaller numbers = better global rankings</span>
-                </li>
+                <li className="flex items-start"><span className="text-indigo-500 mr-2 mt-1">•</span><span>Think about what each country is famous for</span></li>
+                <li className="flex items-start"><span className="text-indigo-500 mr-2 mt-1">•</span><span>Consider both obvious and surprising strengths</span></li>
+                <li className="flex items-start"><span className="text-indigo-500 mr-2 mt-1">•</span><span>Smaller numbers = better global rankings</span></li>
               </ul>
             </div>
 
             {/* Quick Examples */}
-            <div className="bg-gradient-to-r from-orange-50 to-red-50 p-5 sm:p-6 rounded-2xl border border-orange-100 shadow-sm">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 flex items-center">
-                <span className="text-xl sm:text-2xl mr-2">🌍</span>
-                Quick Examples
-              </h3>
+            <div className="bg-gradient-to-r from-orange-50 to-red-50 p-4 sm:p-6 rounded-2xl border border-orange-100 shadow-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 flex items-center"><span className="text-xl sm:text-2xl mr-2">🌍</span>Quick Examples</h3>
               <ul className="space-y-2 text-gray-700 text-sm sm:text-base">
-                <li className="flex items-start">
-                  <span className="text-orange-500 mr-2 mt-1">•</span>
-                  <span>🇧🇷 Brazil: Coffee #1, FIFA #4</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-orange-500 mr-2 mt-1">•</span>
-                  <span>🇺🇸 USA: GDP #1, Gas production #1</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-orange-500 mr-2 mt-1">•</span>
-                  <span>🇸🇬 Singapore: Very safe (Crime #2)</span>
-                </li>
+                <li className="flex items-start"><span className="text-orange-500 mr-2 mt-1">•</span><span>🇧🇷 Brazil: Coffee #1, FIFA #4</span></li>
+                <li className="flex items-start"><span className="text-orange-500 mr-2 mt-1">•</span><span>🇺🇸 USA: GDP #1, Gas production #1</span></li>
+                <li className="flex items-start"><span className="text-orange-500 mr-2 mt-1">•</span><span>🇸🇬 Singapore: Very safe (Crime #2)</span></li>
               </ul>
             </div>
           </div>
         </div>
 
         {/* Action Buttons - Fixed at bottom */}
-        <div className="flex-shrink-0 p-6 border-t border-gray-100 bg-white/90 rounded-b-3xl shadow-inner flex flex-col sm:flex-row gap-4">
-          <button
-            onClick={() => { if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); } handleBackToStart(); }}
-            className="flex-1 group bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold text-base px-6 py-4 rounded-2xl hover:from-blue-600 hover:to-green-600 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation relative overflow-hidden"
-          >
-            <span className="relative z-10 flex items-center justify-center">
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Start
-            </span>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
-          <button
-            onClick={() => { if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); } onStartGame(); }}
-            className="flex-1 group bg-white text-blue-600 font-bold text-base px-6 py-4 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-blue-300 min-h-[48px] touch-manipulation relative overflow-hidden"
-          >
-            <span className="relative z-10 flex items-center justify-center">
-              Start Playing
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a1.5 1.5 0 011.5 1.5V12a1.5 1.5 0 01-1.5 1.5H9m0 0v3m0-3h3m-3 0h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H9z"
-                />
-              </svg>
-            </span>
-          </button>
+        <div className="flex-shrink-0 px-6 pb-8 pt-4 border-t border-gray-100 bg-white/90 rounded-b-3xl">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={() => { if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); } handleBackToStart(); }}
+              className="flex-1 group bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold text-base px-6 py-3 rounded-2xl hover:from-blue-600 hover:to-green-600 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation relative overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center justify-center">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Start
+              </span>
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+            <button
+              onClick={() => { if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); } onStartGame(); }}
+              className="flex-1 group bg-white text-blue-600 font-bold text-base px-6 py-3 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-blue-300 min-h-[48px] touch-manipulation relative overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center justify-center">
+                Start Playing
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a1.5 1.5 0 011.5 1.5V12a1.5 1.5 0 01-1.5 1.5H9m0 0v3m0-3h3m-3 0h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H9z" />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
-        <audio ref={clickSoundRef} preload="auto">
-          <source src="/click.mp3" type="audio/mpeg" />
-        </audio>
       </div>
+
+      <audio ref={clickSoundRef} preload="auto">
+        <source src="/click.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   )
 }
