@@ -1,16 +1,22 @@
 "use client"
 
+import { useRef } from "react"
+
 interface StartScreenProps {
   onStartGame: () => void
   onHowToPlay: () => void
 }
 
 export default function StartScreen({ onStartGame, onHowToPlay }: StartScreenProps) {
+  const clickSoundRef = useRef<HTMLAudioElement>(null)
+
   const handleStartGame = () => {
+    if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); }
     onStartGame()
   }
 
   const handleHowToPlay = () => {
+    if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); }
     onHowToPlay()
   }
 
@@ -61,6 +67,10 @@ export default function StartScreen({ onStartGame, onHowToPlay }: StartScreenPro
           </div>
         </div>
       </div>
+
+      <audio ref={clickSoundRef} preload="auto">
+        <source src="/click.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   )
 }

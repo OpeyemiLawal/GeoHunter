@@ -89,6 +89,7 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
   const dropSoundRef = useRef<HTMLAudioElement>(null)
   const shuffleSoundRef = useRef<HTMLAudioElement>(null)
   const completeSoundRef = useRef<HTMLAudioElement>(null)
+  const clickSoundRef = useRef<HTMLAudioElement>(null)
 
   const startNextRound = () => {
     if (currentRound < 7) {
@@ -96,12 +97,11 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
       setCurrentFlagIndex(0)
       setIsAnimating(true)
       setAnimationComplete(false)
-      setAllCategoriesDisabled(false) // Re-enable categories for next round
-
+      setAllCategoriesDisabled(false)
       // Play shuffle sound
       if (shuffleSoundRef.current) {
-        shuffleSoundRef.current.currentTime = 0
-        shuffleSoundRef.current.play().catch(() => {})
+        shuffleSoundRef.current.currentTime = 0;
+        shuffleSoundRef.current.play().catch(() => {});
       }
     }
   }
@@ -116,6 +116,12 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
     if (dropSoundRef.current) {
       dropSoundRef.current.currentTime = 0
       dropSoundRef.current.play().catch(() => {})
+    }
+
+    // Play click sound
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0;
+      clickSoundRef.current.play().catch(() => {});
     }
 
     // Get the actual ranking for this country and category
@@ -157,8 +163,8 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
           const finalResults = [...gameResults, newResult]
           // Play completion sound
           if (completeSoundRef.current) {
-            completeSoundRef.current.currentTime = 0
-            completeSoundRef.current.play().catch(() => {})
+            completeSoundRef.current.currentTime = 0;
+            completeSoundRef.current.play().catch(() => {});
           }
           onGameComplete?.(finalResults)
         }, 500)
@@ -210,7 +216,6 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
   }
 
   const sessionProgress = ((currentRound + 1) / 8) * 100
-
   const isMobile = useIsMobile();
 
   return (
@@ -636,12 +641,13 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
         <source src="/sounds/drop.wav" type="audio/wav" />
       </audio>
       <audio ref={shuffleSoundRef} preload="auto">
-        <source src="/sounds/shuffle.mp3" type="audio/mpeg" />
-        <source src="/sounds/shuffle.wav" type="audio/wav" />
+        <source src="/shuffling-cards.mp3" type="audio/mpeg" />
       </audio>
       <audio ref={completeSoundRef} preload="auto">
-        <source src="/sounds/complete.mp3" type="audio/mpeg" />
-        <source src="/sounds/complete.wav" type="audio/wav" />
+        <source src="/game-level-complete.mp3" type="audio/mpeg" />
+      </audio>
+      <audio ref={clickSoundRef} preload="auto">
+        <source src="/click.mp3" type="audio/mpeg" />
       </audio>
 
       <style jsx>{`

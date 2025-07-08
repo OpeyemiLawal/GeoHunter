@@ -1,5 +1,7 @@
 "use client"
 
+import { useRef } from "react"
+
 interface GameResult {
   country: string
   category: string
@@ -15,6 +17,8 @@ interface ScoreScreenProps {
 }
 
 export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore = 0 }: ScoreScreenProps) {
+  const clickSoundRef = useRef<HTMLAudioElement>(null)
+
   // Determine message and color based on score
   const getScoreMessage = (score: number) => {
     if (score < 100) return { text: "Elite!", color: "text-green-500", bgColor: "bg-green-500", emoji: "🏆" }
@@ -48,6 +52,7 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
   const randomFact = didYouKnowFacts[Math.floor(Math.random() * didYouKnowFacts.length)]
 
   const handlePlayAgain = () => {
+    if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); }
     onPlayAgain()
   }
 
@@ -261,6 +266,10 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
           </div>
         </div>
       </div>
+
+      <audio ref={clickSoundRef} preload="auto">
+        <source src="/click.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   )
 }
