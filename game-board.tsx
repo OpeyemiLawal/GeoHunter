@@ -224,6 +224,7 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
       <div className="bg-white border-b border-gray-200 flex-shrink-0">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
+            {/* Logo and Title */}
             <div className="flex items-center space-x-2">
               <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-xs">🌍</span>
@@ -232,19 +233,22 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
               <h1 className="text-base font-bold text-gray-800 sm:hidden">GeoHunter</h1>
             </div>
 
-            {/* Mobile Layout */}
-            <div className="flex items-center space-x-2 sm:hidden">
-              <div className="text-right">
+            {/* Mobile Layout - Improved */}
+            <div className="flex items-center gap-2 sm:hidden">
+              {/* Score */}
+              <div className="text-right mr-1">
                 <div className="text-xs text-gray-500 font-medium">SCORE</div>
                 <div className="text-lg font-bold text-gray-800">{score}</div>
               </div>
 
+              {/* Difficulty Toggle */}
               <div className="flex items-center bg-gray-100 rounded-full p-0.5">
                 <button
                   onClick={() => setIsEasyMode(true)}
                   className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
                     isEasyMode ? "bg-green-500 text-white shadow-md" : "text-gray-600"
                   }`}
+                  aria-label="Easy Mode"
                 >
                   Easy
                 </button>
@@ -253,11 +257,44 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
                   className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
                     !isEasyMode ? "bg-red-500 text-white shadow-md" : "text-gray-600"
                   }`}
+                  aria-label="Hard Mode"
                 >
                   Hard
                 </button>
               </div>
 
+              {/* Restart Button (icon only) */}
+              <button
+                onClick={() => {
+                  setScore(0)
+                  setSelectedCategories([])
+                  setCategoryFlags({})
+                  setGameResults([])
+                  setCurrentRound(0)
+                  setCurrentFlagIndex(0)
+                  setIsAnimating(true)
+                  setAnimationComplete(false)
+                  setFeedback("")
+                  setShowFeedback(false)
+                  setDraggedOver(null)
+                  setIsDragging(false)
+                  setAllCategoriesDisabled(false)
+                  setSessionCountries(getRandomCountries(8))
+                }}
+                className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded-xl transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                aria-label="Restart Game"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+              </button>
+
+              {/* Menu Button (icon only) */}
               <button
                 onClick={() => {
                   setScore(0)
@@ -271,9 +308,10 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
                   setAllCategoriesDisabled(false)
                   onBackToMenu?.()
                 }}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium p-2 rounded-xl transition-all duration-200 active:scale-95"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-xl transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                aria-label="Back to Menu"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

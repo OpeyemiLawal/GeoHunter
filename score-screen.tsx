@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import { didYouKnowFacts } from "./dyk-facts";
 
 interface GameResult {
   country: string
@@ -28,25 +29,6 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
   }
 
   const scoreMessage = getScoreMessage(totalScore)
-
-  // Did You Know facts to help users play better
-  const didYouKnowFacts = [
-    "🇨🇳 China has the world's 2nd largest population but ranks 79th in FIFA - think beyond the obvious!",
-    "🇧🇷 Brazil is #1 in coffee production and #4 in FIFA rankings - South American powerhouse!",
-    "🇫🇮 Finland is the world's safest country (Crime #3) and biggest coffee consumer per capita!",
-    "🇺🇸 USA leads in GDP and gas production but ranks 56th in crime safety - economic power ≠ safety",
-    "🇫🇷 France is #1 in tourism but only #45 in coffee - they prefer wine over coffee!",
-    "🇷🇺 Russia is the largest country by size but has moderate GDP ranking - size doesn't equal wealth",
-    "🇸🇬 Singapore is tiny (#190 in size) but incredibly safe (#2 in crime) - small can be mighty!",
-    "🇳🇴 Norway is rich in gas (#15) but small in population (#119) - natural resources boost small nations",
-    "🇯🇵 Japan has low crime (#25) and high GDP (#4) but moderate FIFA ranking (#20) - tech > sports",
-    "🇮🇳 India leads in population (#1) but moderate in GDP per capita - population ≠ individual wealth",
-    "🇦🇺 Australia is huge (#6 in size) but has low population (#55) - vast lands, few people",
-    "🇨🇭 Switzerland is small but wealthy - think quality over quantity for European nations",
-    "🇸🇦 Saudi Arabia ranks high in gas (#7) due to oil reserves - Middle East = energy power",
-    "🇹🇭 Thailand excels in tourism (#10) - Southeast Asian countries often rank high in travel",
-    "🇪🇹 Ethiopia is a coffee powerhouse (#5) despite economic challenges - origin matters in agriculture",
-  ]
 
   // Get random fact for display
   const randomFact = didYouKnowFacts[Math.floor(Math.random() * didYouKnowFacts.length)]
