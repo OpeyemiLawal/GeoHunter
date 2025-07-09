@@ -224,102 +224,114 @@ export default function GameBoard({ onGameComplete, onBackToMenu }: GameBoardPro
       <div className="bg-white border-b border-gray-200 flex-shrink-0">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo and Title */}
-            <div className="flex items-center space-x-2">
+            {/* Logo and Title - Desktop Only */}
+            <div className="hidden sm:flex items-center space-x-2">
               <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-xs">🌍</span>
               </div>
-              <h1 className="text-lg font-bold text-gray-800 hidden sm:block">Geo Hunter</h1>
-              <h1 className="text-base font-bold text-gray-800 sm:hidden">GeoHunter</h1>
+              <h1 className="text-lg font-bold text-gray-800">Geo Hunter</h1>
             </div>
 
-            {/* Mobile Layout - Improved */}
-            <div className="flex items-center gap-2 sm:hidden">
-              {/* Score */}
-              <div className="text-right mr-1">
-                <div className="text-xs text-gray-500 font-medium">SCORE</div>
-                <div className="text-lg font-bold text-gray-800">{score}</div>
+            {/* Mobile Layout - Premium Redesign */}
+            <div className="sm:hidden w-full">
+              <div className="flex items-center justify-between bg-white/90 backdrop-blur-md rounded-2xl shadow-lg px-2 py-2 gap-x-2">
+                {/* Logo + Title */}
+                <div className="flex items-center gap-x-2 min-w-0">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center shadow-md">
+                    <span className="text-white font-bold text-lg">🌍</span>
+                  </div>
+                  <span className="text-base font-extrabold text-gray-800 truncate">GeoHunter</span>
+                </div>
+
+                {/* Score (centered, prominent) */}
+                <div className="flex flex-col items-center flex-1 min-w-0">
+                  <span className="text-[10px] text-gray-500 font-medium tracking-wide">SCORE</span>
+                  <span className="text-2xl font-extrabold text-blue-600 drop-shadow-sm leading-none">{score}</span>
+                </div>
+
+                {/* Controls: Difficulty, Restart, Menu */}
+                <div className="flex items-center gap-x-1">
+                  {/* Difficulty Toggle */}
+                  <div className="flex items-center bg-gray-100 rounded-full px-1 py-0.5 shadow-inner">
+                    <button
+                      onClick={() => setIsEasyMode(true)}
+                      className={`px-2 py-1 rounded-full text-xs font-semibold transition-all duration-200 focus:outline-none ${
+                        isEasyMode ? "bg-green-500 text-white shadow" : "text-gray-600 hover:text-gray-800"
+                      }`}
+                      aria-label="Easy Mode"
+                    >
+                      Easy
+                    </button>
+                    <button
+                      onClick={() => setIsEasyMode(false)}
+                      className={`px-2 py-1 rounded-full text-xs font-semibold transition-all duration-200 focus:outline-none ${
+                        !isEasyMode ? "bg-red-500 text-white shadow" : "text-gray-600 hover:text-gray-800"
+                      }`}
+                      aria-label="Hard Mode"
+                    >
+                      Hard
+                    </button>
+                  </div>
+
+                  {/* Restart Button (icon only) */}
+                  <button
+                    onClick={() => {
+                      setScore(0)
+                      setSelectedCategories([])
+                      setCategoryFlags({})
+                      setGameResults([])
+                      setCurrentRound(0)
+                      setCurrentFlagIndex(0)
+                      setIsAnimating(true)
+                      setAnimationComplete(false)
+                      setFeedback("")
+                      setShowFeedback(false)
+                      setDraggedOver(null)
+                      setIsDragging(false)
+                      setAllCategoriesDisabled(false)
+                      setSessionCountries(getRandomCountries(8))
+                    }}
+                    className="w-9 h-9 flex items-center justify-center bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full shadow transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300 ml-1"
+                    aria-label="Restart Game"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Menu Button (icon only) */}
+                  <button
+                    onClick={() => {
+                      setScore(0)
+                      setSelectedCategories([])
+                      setCategoryFlags({})
+                      setGameResults([])
+                      setCurrentRound(0)
+                      setCurrentFlagIndex(0)
+                      setIsAnimating(true)
+                      setAnimationComplete(false)
+                      setAllCategoriesDisabled(false)
+                      onBackToMenu?.()
+                    }}
+                    className="w-9 h-9 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full shadow transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-300 ml-1"
+                    aria-label="Back to Menu"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-
-              {/* Difficulty Toggle */}
-              <div className="flex items-center bg-gray-100 rounded-full p-0.5">
-                <button
-                  onClick={() => setIsEasyMode(true)}
-                  className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                    isEasyMode ? "bg-green-500 text-white shadow-md" : "text-gray-600"
-                  }`}
-                  aria-label="Easy Mode"
-                >
-                  Easy
-                </button>
-                <button
-                  onClick={() => setIsEasyMode(false)}
-                  className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                    !isEasyMode ? "bg-red-500 text-white shadow-md" : "text-gray-600"
-                  }`}
-                  aria-label="Hard Mode"
-                >
-                  Hard
-                </button>
-              </div>
-
-              {/* Restart Button (icon only) */}
-              <button
-                onClick={() => {
-                  setScore(0)
-                  setSelectedCategories([])
-                  setCategoryFlags({})
-                  setGameResults([])
-                  setCurrentRound(0)
-                  setCurrentFlagIndex(0)
-                  setIsAnimating(true)
-                  setAnimationComplete(false)
-                  setFeedback("")
-                  setShowFeedback(false)
-                  setDraggedOver(null)
-                  setIsDragging(false)
-                  setAllCategoriesDisabled(false)
-                  setSessionCountries(getRandomCountries(8))
-                }}
-                className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded-xl transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                aria-label="Restart Game"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-              </button>
-
-              {/* Menu Button (icon only) */}
-              <button
-                onClick={() => {
-                  setScore(0)
-                  setSelectedCategories([])
-                  setCategoryFlags({})
-                  setGameResults([])
-                  setCurrentRound(0)
-                  setCurrentFlagIndex(0)
-                  setIsAnimating(true)
-                  setAnimationComplete(false)
-                  setAllCategoriesDisabled(false)
-                  onBackToMenu?.()
-                }}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-xl transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                aria-label="Back to Menu"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  />
-                </svg>
-              </button>
             </div>
 
             {/* Desktop Layout */}

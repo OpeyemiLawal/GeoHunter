@@ -1,7 +1,8 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { didYouKnowFacts } from "./dyk-facts";
+import { proTips } from "./pro-tips";
 
 interface GameResult {
   country: string
@@ -19,6 +20,14 @@ interface ScoreScreenProps {
 
 export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore = 0 }: ScoreScreenProps) {
   const clickSoundRef = useRef<HTMLAudioElement>(null)
+  const completeSoundRef = useRef<HTMLAudioElement>(null)
+
+  useEffect(() => {
+    if (completeSoundRef.current) {
+      completeSoundRef.current.currentTime = 0;
+      completeSoundRef.current.play().catch(() => {});
+    }
+  }, []);
 
   // Determine message and color based on score
   const getScoreMessage = (score: number) => {
@@ -32,6 +41,22 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
 
   // Get random fact for display
   const randomFact = didYouKnowFacts[Math.floor(Math.random() * didYouKnowFacts.length)]
+
+  // Select 6 unique pro tips, one from each of 6 different arrays
+  function getRandomProTips() {
+    // Pick 6 unique indices from 0-19
+    const indices: number[] = [];
+    while (indices.length < 6) {
+      const idx = Math.floor(Math.random() * proTips.length);
+      if (!indices.includes(idx)) indices.push(idx);
+    }
+    // For each index, pick a random tip from that array
+    return indices.map(i => {
+      const arr = proTips[i];
+      return arr[Math.floor(Math.random() * arr.length)];
+    });
+  }
+  const randomProTips = getRandomProTips();
 
   const handlePlayAgain = () => {
     if (clickSoundRef.current) { clickSoundRef.current.currentTime = 0; clickSoundRef.current.play().catch(() => {}); }
@@ -208,12 +233,9 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
                 🎯 <span className="font-bold">Pro Tips</span>
               </div>
               <ul className="text-white/80 text-sm space-y-1">
-                <li>• Large countries often rank high in population and size</li>
-                <li>• Oil-rich nations excel in gas production rankings</li>
-                <li>• European countries typically have low crime rankings</li>
-                <li>• South American countries dominate coffee production</li>
-                <li>• Island nations often rank high in tourism</li>
-                <li>• Economic powerhouses lead in GDP rankings</li>
+                {randomProTips.map((tip, i) => (
+                  <li key={i}>• {tip}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -251,6 +273,9 @@ export default function ScoreScreen({ onPlayAgain, gameResults = [], totalScore 
 
       <audio ref={clickSoundRef} preload="auto">
         <source src="/click.mp3" type="audio/mpeg" />
+      </audio>
+      <audio ref={completeSoundRef} preload="auto">
+        <source src="/game-complete.wav" type="audio/wav" />
       </audio>
     </div>
   )
